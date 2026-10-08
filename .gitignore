@@ -1,0 +1,40 @@
+# ===== Environment variables =====
+.env
+.env.*
+!.env.example
+
+# ===== Node / Frontend (Axonite_website) =====
+node_modules/
+dist/
+dist-ssr/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ===== Python / Backend =====
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+uv.lock
+
+# ===== Vector DB / Uploads (generated at runtime) =====
+chroma_db/
+uploads/
+
+# ===== IDE / Editor =====
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+desktop.ini

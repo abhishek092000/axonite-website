@@ -1,0 +1,216 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   Axonite brand tokens — shared with the product site so both properties
+   read as one company. Warm paper canvas, near-black ink, one teal accent.
+--------------------------------------------------------------------------- */
+:root {
+  --paper: #faf9f7;
+  --paper-alt: #f2f0eb;
+  --white: #ffffff;
+  --dark: #0d1017;
+  --dark-2: #151923;
+
+  --ink: #12151c;
+  --ink-2: #3b4250;
+  --ink-3: #6b7284;
+  --ink-inverse: #f4f2ee;
+  --ink-inverse-2: #a9b0bf;
+
+  --line: #e2ded6;
+  --line-soft: #eeeae3;
+  --line-dark: #262d3b;
+
+  --accent: #0f766e;
+  --accent-strong: #0b5a55;
+  --accent-bright: #14b8a6;
+  --accent-soft: #e4f2ef;
+
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Newsreader", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink-2);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+}
+
+::selection {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+/* Focus visibility kept intentionally strong */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------------------
+   Component layer. Declared inside @layer components so Tailwind utilities
+   (which are emitted after this layer) can still override these defaults.
+--------------------------------------------------------------------------- */
+@layer components {
+  .font-display {
+    font-family: var(--font-serif);
+  }
+
+  /* Uppercase micro-label. Reference site renders these in the sans face
+     rather than a monospace one, so headings stay quiet and editorial. */
+  .font-mono-label {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  /* The one recurring label style from the product site. */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent);
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  /* Dark sections invert type the way the product site does. */
+  .section-dark {
+    background: var(--dark);
+    color: var(--ink-inverse-2);
+  }
+
+  .section-dark h1,
+  .section-dark h2,
+  .section-dark h3,
+  .section-dark h4 {
+    color: var(--ink-inverse);
+  }
+
+  .section-dark .eyebrow {
+    color: var(--accent-bright);
+  }
+
+  /* Card surfaces: hairline border, soft elevation, no neon glow. */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(18, 21, 28, 0.04), 0 1px 1px rgba(18, 21, 28, 0.03);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+  }
+
+  .card--hover:hover {
+    border-color: #d3cec4;
+    box-shadow: 0 2px 4px rgba(18, 21, 28, 0.04), 0 8px 20px -12px rgba(18, 21, 28, 0.14);
+    transform: translateY(-2px);
+  }
+
+  /* Thin hairline above a section, as on the product site. */
+  .section-rule {
+    border-top: 1px solid var(--line-soft);
+  }
+
+}
+
+/* Dark sections recede their body copy one step. Kept unlayered so a plain
+   <p> inside .section-dark reads correctly without a colour utility. */
+.section-dark p {
+  color: var(--ink-inverse-2);
+}
+
+/* Reveal-on-scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Signal trace pulse */
+@keyframes trace-pulse {
+  0% { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
+}
+.trace-line {
+  stroke-dasharray: 1000;
+  animation: trace-pulse 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes node-glow {
+  0%, 100% { opacity: 0.55; r: 3.2; }
+  50% { opacity: 1; r: 4.4; }
+}
+.trace-node {
+  animation: node-glow 2.6s ease-in-out infinite;
+}
+
+/* Grain texture overlay for dark sections, kept very subtle */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Soft ambient wash behind light hero sections, mirroring the product site's
+   .hero::before. Deliberately low contrast — no neon glows. */
+.ambient-wash::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 420px at 88% -10%, rgba(15, 118, 110, 0.1), transparent 62%),
+    radial-gradient(620px 320px at 8% 8%, rgba(169, 117, 44, 0.07), transparent 62%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .trace-line, .trace-node {
+    animation: none;
+  }
+  [data-parallax] {
+    transform: none !important;
+  }
+}
