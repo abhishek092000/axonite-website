@@ -456,7 +456,7 @@ export default function Contact() {
           </h1>
 
           <p className="mt-6 max-w-[52ch] text-[1.125rem] leading-relaxed text-ink-2">
-            A few lines about the problem is enough to start.
+            A few lines about the problem are enough to start.
             We reply within one working day.
           </p>
 

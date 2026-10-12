@@ -97,7 +97,7 @@ export default function Chatbot() {
       {!isOpen && !hasInteracted && (
         <div className="mb-2 mr-1 flex items-center gap-2 bg-white text-ink border border-line px-3.5 py-2 rounded-full shadow-raise text-xs font-semibold animate-bounce">
           <span className="w-2 h-2 rounded-full bg-accent animate-ping"></span>
-          Need help? Ask our AI
+          Need help? Ask our AI assistant
         </div>
       )}
 

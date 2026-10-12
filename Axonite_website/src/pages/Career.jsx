@@ -16,11 +16,11 @@ const perks = [
   },
   {
     label: "Flexible hours",
-    desc: "Core overlap hours, otherwise work when you're sharpest.",
+    desc: "Core overlap hours; otherwise, work when you're sharpest.",
   },
   {
     label: "Learning budget",
-    desc: "Courses, books, and conferences — no approval theatre.",
+    desc: "Courses, books, and conferences — no approval theater.",
   },
   {
     label: "Real ownership",
@@ -152,8 +152,8 @@ export default function Career() {
   const validateName = () => {
     const value = formData.name.trim();
     if (!value) return "Name is required.";
-    if (value.length > 100) return "Name cannot be more than 100 characters.";
-    if (!nameRegex.test(value)) return "Name can contain only letters and spaces.";
+    if (value.length > 100) return "Name cannot be longer than 100 characters.";
+    if (!nameRegex.test(value)) return "Name may contain only letters and spaces.";
     return "";
   };
 
@@ -172,8 +172,8 @@ export default function Career() {
   const validateCity = () => {
     const value = formData.city.trim();
     if (!value) return "Residential city is required.";
-    if (value.length > 20) return "City cannot be more than 20 characters.";
-    if (!cityRegex.test(value)) return "City can contain only letters, spaces, dots and hyphens.";
+    if (value.length > 20) return "City cannot be longer than 20 characters.";
+    if (!cityRegex.test(value)) return "City may contain only letters, spaces, dots, and hyphens.";
     return "";
   };
 
@@ -323,7 +323,7 @@ const handleSubmit = async (e) => {
           <div className="mt-12 divide-y divide-line border-t border-b border-line">
             {!loadingJobs && jobs.length === 0 && (
               <p className="py-8 text-sm text-ink-3">
-                Check back soon, or write to us anyway below.
+                Check back soon, or write to us anyway.
               </p>
             )}
 

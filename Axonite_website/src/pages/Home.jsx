@@ -6,7 +6,7 @@ import { products, process } from "../data/content";
 
 const metrics = [
   { value: "3", label: "Products in production, each doing one job well" },
-  { value: "11", label: "Engineers, designers and support specialists" },
+  { value: "11", label: "Engineers, designers, and support specialists" },
   { value: "2026", label: "Founded in Pune, shipping from day one" },
   { value: "10 yr", label: "The horizon we build every product against" },
 ];
@@ -27,8 +27,8 @@ export default function Home() {
 
           <p className="mt-6 max-w-[46ch] text-[1.16rem] leading-relaxed text-ink-2">
             We build and run product software for teams that can't afford
-            downtime finance ops, field service, product planning. Fewer
-            features, all of them load-bearing.
+            downtime — finance operations, field service, and product
+            planning. Fewer features, all of them load-bearing.
           </p>
 
           <div className="flex flex-wrap gap-3 mt-9">
@@ -48,11 +48,11 @@ export default function Home() {
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-12 pt-6 border-t border-line text-[0.85rem] text-ink-3">
             <span>
-              <strong className="text-ink font-semibold">In production today  </strong>  three
-              products across finance, field and product
+              <strong className="text-ink font-semibold">In production today</strong> — three
+              products across finance, field, and product
             </span>
             <span aria-hidden="true" className="hidden sm:inline text-line"></span>
-            <span>Pune, India  — serving teams across India</span>
+            <span>Pune, India — serving teams nationwide</span>
           </div>
         </div>
 
@@ -88,8 +88,8 @@ export default function Home() {
               </h2>
               <p className="mt-4 text-[1.05rem] leading-relaxed text-ink-2">
                 We would rather run three products properly than eight
-                adequately. Everything we ship, we intend to still be
-                supporting in ten years.
+                adequately. Everything we ship is built to still be
+                supported in ten years.
               </p>
             </div>
           </Reveal>
@@ -130,7 +130,7 @@ export default function Home() {
               </h2>
               <p className="mt-4 text-[1.05rem] leading-relaxed">
                 Five stages, repeated every release. Nothing reaches production
-                until it has passed the checks we agreed together.
+                until it has passed the checks we agreed on together.
               </p>
             </div>
           </Reveal>

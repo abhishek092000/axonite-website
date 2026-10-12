@@ -11,7 +11,7 @@ export default function Services() {
         <div className="relative max-w-prose mx-auto px-6">
           <p className="eyebrow mb-5">Services</p>
           <h1 className="text-display">
-            We build the product, then we keep it running.
+            We build the product, and then we keep it running.
           </h1>
           <p className="mt-6 max-w-[52ch] text-[1.125rem] leading-relaxed text-ink-2">
             Whether you need a product built from a blank page or an existing

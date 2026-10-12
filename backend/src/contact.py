@@ -57,7 +57,7 @@ def contact():
             return jsonify({
                 "success": False,
                 "field": "turnstile",
-                "message": "Security verification is missing. Please complete the captcha.",
+                "message": "Security verification is missing. Please complete the CAPTCHA.",
             }), 400
 
         client_ip = request.headers.get("CF-Connecting-IP") or request.remote_addr

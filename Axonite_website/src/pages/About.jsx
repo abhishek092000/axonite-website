@@ -5,7 +5,7 @@ import CloudBackground from "../components/CloudBackground";
 const values = [
   {
     title: "Fewer, better products",
-    desc: "We'd rather run three products well than eight adequately. Every product we ship, we intend to still be running in ten years.",
+    desc: "We'd rather run three products well than eight adequately. Every product we ship is built to still be running in ten years.",
   },
   {
     title: "Slow to promise, fast to build",
@@ -21,7 +21,7 @@ const facts = [
   { label: "Founded", value: "2026" },
   { label: "Team", value: "11 people" },
   { label: "Products live", value: "3" },
-  { label: "Based in", value: "Pune - IN & US" },
+  { label: "Based in", value: "Pune — India & USA" },
 ];
 
 export default function About() {
@@ -43,7 +43,7 @@ export default function About() {
       <div  />
 
       <p className="max-w-3xl text-[0.95rem] leading-relaxed text-ink-2 mt-6">
-        Axonite Technologies builds intelligent software that connects
+        Axonite Technology Pvt Ltd builds intelligent software that connects
         manufacturing operations, enterprise workflows, and business data,
         helping organizations operate with greater efficiency, visibility,
         and control.
@@ -82,7 +82,7 @@ export default function About() {
             </h2>
             <p className="text-ink-2 leading-relaxed mb-4 max-w-3xl text-[0.95rem]">
               We're headquartered in Pune, Maharashtra, with engineers and
-              designers working both in-office and remote. Most of our
+              designers working both in the office and remotely. Most of our
               customers are operations teams across India who've outgrown
               spreadsheets but don't want enterprise software's overhead.
             </p>
@@ -126,7 +126,7 @@ export default function About() {
           <div  />
 
           <p className="mt-6 text-left   leading-relaxed !text-ink-2 md:text-[0.95rem]">
-            We believe automation should always be built with control, reliability, and accountability at its core. Our solutions are designed around traceability, human oversight, and measurable operational outcomes, ensuring that automation supports people and processes rather than replacing essential control. We work closely with our customers to understand their unique workflows, integrate seamlessly with existing systems, and introduce practical, responsible automation that delivers lasting value.
+            We believe automation should always be built with control, reliability, and accountability at its core. Our solutions are designed around traceability, human oversight, and measurable operational outcomes, ensuring that automation supports people and processes rather than replacing essential human control. We work closely with our customers to understand their unique workflows, integrate seamlessly with existing systems, and introduce practical, responsible automation that delivers lasting value.
             <br />
             <br />
            Our cross-border delivery model combines product strategy and client engagement in the United States with engineering, implementation, and support capabilities in India. This enables us to provide responsive customer service, continuous product support, and scalable technology solutions that help organizations operate efficiently across regions.
@@ -204,44 +204,14 @@ export default function About() {
     {/* Founders */}
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-      {/* Founder 1 */}
-      <Reveal>
-        <div className="card flex h-full max-w-sm mx-auto w-full flex-col overflow-hidden">
-
-          <div className="aspect-[4/3] overflow-hidden bg-paper">
-            <img
-              src="Founder1.png"
-              alt="Founder of Axonite Technologies"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <div className="flex-1 p-6">
-            <p className="eyebrow mb-2">Founder</p>
-
-            <h3 className="font-serif text-[1.5rem] leading-tight text-ink">
-              Subodh Mahant
-            </h3>
-
-            <p className="mt-3 text-sm text-ink-2 leading-relaxed">
-              With extensive experience in manufacturing automation and
-              enterprise technology, the founder brings a practical
-              understanding of industrial operations and a vision for
-              building reliable software solutions.
-            </p>
-          </div>
-
-        </div>
-      </Reveal>
-
       {/* Founder 2 */}
       <Reveal delay={100}>
   <div className="card flex h-full max-w-sm mx-auto w-full flex-col overflow-hidden">
 
-    <div className="aspect-[4/3] overflow-hidden bg-paper">
+    <div className="aspect-[3/3] overflow-hidden bg-paper">
       <img
         src="Founder2.png"
-        alt="David Havenridge, Founder of Axonite Technologies"
+        alt="David Havenridge, Founder of Axonite Technology Pvt Ltd"
         className="w-full h-full object-cover object-[center_25%]"
       />
     </div>
@@ -255,13 +225,42 @@ export default function About() {
 
       <p className="mt-2 text-sm text-ink-2 leading-relaxed">
         Combining technology expertise with a strong focus on business
-        operations, the founder helps shape Axonite's products,
+        operations, David helps shape Axonite's products,
         engineering capabilities, and long-term technology direction.
       </p>
     </div>
 
   </div>
 </Reveal>
+
+      {/* Founder 1 */}
+      <Reveal>
+        <div className="card flex h-full max-w-sm mx-auto w-full flex-col overflow-hidden">
+
+          <div className="aspect-[3/3] overflow-hidden bg-paper">
+            <img
+              src="Founder1.png"
+              alt="Founder of Axonite Technology Pvt Ltd"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <div className="flex-1 p-6">
+            <p className="eyebrow mb-2">Founder</p>
+
+            <h3 className="font-serif text-[1.5rem] leading-tight text-ink">
+              Subodh Mahant
+            </h3>
+
+            <p className="mt-3 text-sm text-ink-2 leading-relaxed">
+              Subodh Mahant is a technology entrepreneur specialising in cloud hosting, server infrastructure, WordPress development, and technical support. With over 25 years of industry experience, he helps businesses and agencies build, manage, and scale reliable digital solutions through expert development, infrastructure management, and automation.
+            </p>
+          </div>
+
+        </div>
+      </Reveal>
+
+      
 
     </div>
 

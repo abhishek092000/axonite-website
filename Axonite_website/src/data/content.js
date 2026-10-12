@@ -55,7 +55,7 @@ export const services = [
   },
   {
   title: "Product Support",
-  desc: "We stay on after launch: active maintenance, bug triage, and incremental improvements so your software never degrades into technical debt.",
+  desc: "We stay on after launch: active maintenance, bug triage, and incremental improvements, so your software never degrades into technical debt.",
 },
 ];
 
@@ -142,7 +142,7 @@ export const blogPosts = [
     title: "What we look for in a first engineering hire",
     date: "May 2026",
     tag: "Team",
-    excerpt: "Less about the stack they know, more about how they behave when the stack breaks at 11pm.",
+    excerpt: "Less about the stack they know, more about how they behave when the stack breaks at 11 pm.",
   },
   {
     title: "A quieter approach to applying AI in operations software",
