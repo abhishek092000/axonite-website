@@ -1,6 +1,6 @@
+import { API_BASE_URL, authedFetch } from "../../lib/api";
 import React, { useState, useEffect, useMemo, Fragment } from "react";
 
-const API_BASE_URL = "http://localhost:5000/api";
 
 const mapStatusToString = (statusVal) => {
   if (typeof statusVal === "string" && isNaN(Number(statusVal))) return statusVal;
@@ -84,7 +84,7 @@ export default function ApplicationsManager() {
     setLoading(true);
     setFetchError("");
     try {
-      const response = await fetch(`${API_BASE_URL}/applied_jobs`);
+      const response = await authedFetch(`${API_BASE_URL}/applied_jobs`);
       const isJson = response.headers.get("content-type")?.includes("application/json");
       const result = isJson ? await response.json() : await response.text();
 
@@ -104,7 +104,7 @@ export default function ApplicationsManager() {
           let latestInterview = null;
 
           try {
-            const intRes = await fetch(`${API_BASE_URL}/candidate/${item.user_id}/interviews`);
+            const intRes = await authedFetch(`${API_BASE_URL}/candidate/${item.user_id}/interviews`);
             if (intRes.ok) {
               const intData = await intRes.json();
               if (intData.interviews && intData.interviews.length > 0) {
@@ -168,7 +168,7 @@ export default function ApplicationsManager() {
     );
 
     try {
-      await fetch(`${API_BASE_URL}/applied_jobs/${id}/status`, {
+      await authedFetch(`${API_BASE_URL}/applied_jobs/${id}/status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_status: statusInt }),
@@ -227,7 +227,7 @@ export default function ApplicationsManager() {
     };
 
     try {
-      const res = await fetch(endpoint, {
+      const res = await authedFetch(endpoint, {
         method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -241,7 +241,7 @@ export default function ApplicationsManager() {
       }
 
       // Persist status change to applied_jobs table
-      await fetch(`${API_BASE_URL}/applied_jobs/${id}/status`, {
+      await authedFetch(`${API_BASE_URL}/applied_jobs/${id}/status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_status: statusInt }),

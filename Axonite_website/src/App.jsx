@@ -12,13 +12,17 @@ import Contact from "./pages/Contact";
 import Chatbot from "./components/chatbot";
 
 import AdminLogin from "./admin/pages/Login";
+import ForgotPassword from "./admin/pages/ForgotPassword";
 import AdminLayout from "./admin/AdminLayout";
+import MainAdminRoute from "./admin/MainAdminRoute";
 import AdminDashboard from "./admin/pages/Dashboard";
 import AdminBlog from "./admin/pages/BlogManager";
 import AdminCareers from "./admin/pages/CareerManager";
 import ProtectedRoute from "./admin/ProtectedRoute";
 import AdminApplications from "./admin/pages/ApplicationsManager";
 import KnowledgeBase from "./admin/pages/KnowledgeBase";
+import ChangePassword from "./admin/pages/ChangePassword";
+import AdminsManager from "./admin/pages/AdminsManager";
 import { trackPageView } from "./lib/store";
 
 function ScrollToTop() {
@@ -74,6 +78,7 @@ export default function App() {
         </Route>
 
         <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/forgot-password" element={<ForgotPassword />} />
         <Route
           path="/admin"
           element={
@@ -87,6 +92,15 @@ export default function App() {
           <Route path="careers" element={<AdminCareers />} />
           <Route path="applications" element={<AdminApplications />} />
           <Route path="knowledge-base" element={<KnowledgeBase />} />
+          <Route path="change-password" element={<ChangePassword />} />
+          <Route
+            path="admins"
+            element={
+              <MainAdminRoute>
+                <AdminsManager />
+              </MainAdminRoute>
+            }
+          />
         </Route>
       </Routes>
     </>

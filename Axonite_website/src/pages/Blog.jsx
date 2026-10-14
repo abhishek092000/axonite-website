@@ -1,8 +1,8 @@
+import { API_BASE_URL } from "../lib/api";
 import { useEffect, useRef, useState } from "react";
 import Reveal from "../components/Reveal";
 import CloudBackground from "../components/CloudBackground";
 
-const API_BASE_URL = "http://localhost:5000/api";
 
 function formatDisplayDate(dateStr) {
   if (!dateStr) return "";

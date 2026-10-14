@@ -1,20 +1,50 @@
 import { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom";
 import BrandMark from "../components/BrandMark";
-import { logout } from "../lib/store";
+import { getAdminUser, logout } from "../lib/store";
+import { refreshSession } from "../lib/store";
+import { getToken, isMainAdmin } from "../lib/api";
 
 const links = [
   { to: "/admin", label: "Dashboard", end: true },
   { to: "/admin/blog", label: "Blog posts" },
   { to: "/admin/careers", label: "Careers" },
   { to: "/admin/applications", label: "Applications" },
-  { to: "/admin/knowledge-base", label: "AI Knowledge Base" }, // <-- Added
+  { to: "/admin/knowledge-base", label: "AI Knowledge Base" },
+  { to: "/admin/change-password", label: "Change password" },
+];
+
+const mainAdminLinks = [
+  { to: "/admin/admins", label: "Admin accounts" },
 ];
 
 export default function AdminLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [isMain, setIsMain] = useState(() => isMainAdmin(getAdminUser()));
+
+  // The main admin flag comes from the backend, so refresh it on entry.
+  useEffect(() => {
+    let isMounted = true;
+    if (!getToken()) return () => { isMounted = false; };
+
+    refreshSession().then((admin) => {
+      if (isMounted) setIsMain(isMainAdmin(admin));
+    });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const navLinks = isMain
+    ? [
+        ...links.slice(0, 5),
+        mainAdminLinks[0],
+        ...links.slice(5),
+      ]
+    : links;
 
   // Close mobile drawer on route change
   useEffect(() => {
@@ -34,7 +64,7 @@ export default function AdminLayout() {
     navigate("/admin/login");
   }
 
-  const activeLabel = links.find((l) =>
+  const activeLabel = navLinks.find((l) =>
     l.end ? location.pathname === l.to : location.pathname.startsWith(l.to)
   )?.label;
 
@@ -47,7 +77,7 @@ export default function AdminLayout() {
 
       {/* Navigation list */}
       <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
-        {links.map((l) => (
+        {navLinks.map((l) => (
           <NavLink
             key={l.to}
             to={l.to}

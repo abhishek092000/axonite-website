@@ -1,6 +1,6 @@
+import { API_BASE_URL, authedFetch } from "../../lib/api";
 import { useEffect, useState } from "react";
 
-const API_BASE_URL = "http://localhost:5000/api";
 
 const emptyForm = {
   title: "",
@@ -39,7 +39,7 @@ export default function AdminBlog() {
     setLoading(true);
     setApiError("");
     try {
-      const response = await fetch(`${API_BASE_URL}/blog`);
+      const response = await authedFetch(`${API_BASE_URL}/blog`);
       const isJson = response.headers.get("content-type")?.includes("application/json");
       const result = isJson ? await response.json() : await response.text();
 
@@ -125,7 +125,7 @@ export default function AdminBlog() {
       const url = editingId ? `${API_BASE_URL}/blog/${editingId}` : `${API_BASE_URL}/blog`;
       const method = editingId ? "PUT" : "POST";
 
-      const response = await fetch(url, {
+      const response = await authedFetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -175,7 +175,7 @@ export default function AdminBlog() {
   async function handleDelete(id) {
     if (!confirm("Delete this post? This can't be undone.")) return;
     try {
-      const response = await fetch(`${API_BASE_URL}/blog/${id}`, {
+      const response = await authedFetch(`${API_BASE_URL}/blog/${id}`, {
         method: "DELETE",
       });
       if (!response.ok) {

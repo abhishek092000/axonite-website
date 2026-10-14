@@ -1,7 +1,7 @@
+import { API_BASE_URL, authedFetch } from "../../lib/api";
 import { useEffect, useState } from "react";
 import { getStats } from "../../lib/store";
 
-const API_BASE_URL = "http://localhost:5000/api";
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({ pageviews: 0, sessions: 0, breakdown: {} });
@@ -15,7 +15,7 @@ export default function AdminDashboard() {
     // Fetch live SQL counts straight from database
     async function loadDatabaseCounts() {
       try {
-        const response = await fetch(`${API_BASE_URL}/dashboard/counts`);
+        const response = await authedFetch(`${API_BASE_URL}/dashboard/counts`);
         if (!response.ok) return;
 
         const data = await response.json();

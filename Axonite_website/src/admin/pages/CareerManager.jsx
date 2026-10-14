@@ -1,6 +1,6 @@
+import { API_BASE_URL, authedFetch } from "../../lib/api";
 import { useEffect, useState } from "react";
 
-const API_BASE_URL = "http://localhost:5000/api";
 const emptyForm = { title: "", location: "", type: "Full-time", desc: "" };
 
 export default function AdminCareers() {
@@ -13,7 +13,7 @@ export default function AdminCareers() {
   // Fetch jobs from the Flask MySQL backend
   async function refresh() {
     try {
-      const res = await fetch(`${API_BASE_URL}/jobs`);
+      const res = await authedFetch(`${API_BASE_URL}/jobs`);
       if (!res.ok) throw new Error("Failed to load jobs");
       const data = await res.json();
       setJobs(data);
@@ -51,7 +51,7 @@ export default function AdminCareers() {
     const method = isEdit ? "PUT" : "POST";
 
     try {
-      const response = await fetch(endpoint, {
+      const response = await authedFetch(endpoint, {
         method: method,
         headers: {
           "Content-Type": "application/json",
@@ -93,7 +93,7 @@ export default function AdminCareers() {
     if (!confirm("Remove this role? This can't be undone.")) return;
 
     try {
-      const response = await fetch(`${API_BASE_URL}/jobs/${id}`, {
+      const response = await authedFetch(`${API_BASE_URL}/jobs/${id}`, {
         method: "DELETE",
       });
 

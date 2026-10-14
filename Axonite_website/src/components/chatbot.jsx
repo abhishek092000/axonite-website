@@ -1,6 +1,6 @@
+import { API_BASE_URL } from "../lib/api";
 import React, { useState, useRef, useEffect } from 'react';
 
-const API_BASE_URL = "http://localhost:5000/api";
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);

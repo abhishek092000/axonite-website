@@ -1,25 +1,61 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL, getToken, saveSession } from "../../lib/api";
+import AuthShell, {
+  StatusMessage,
+  Spinner,
+  fieldClass,
+  fieldLabelClass,
+  primaryButtonClass,
+} from "../components/AuthShell";
 
-const API_BASE_URL = "http://localhost:5000/api";
+function EyeIcon({ open }) {
+  return (
+    <svg
+      className="h-[1.05rem] w-[1.05rem]"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {open ? (
+        <>
+          <path d="M2 12s3.6-6.4 10-6.4S22 12 22 12s-3.6 6.4-10 6.4S2 12 2 12Z" />
+          <circle cx="12" cy="12" r="3" />
+        </>
+      ) : (
+        <>
+          <path d="M3 3l18 18" />
+          <path d="M10.6 6.1A9.9 9.9 0 0 1 12 6c6.4 0 10 6 10 6a17.4 17.4 0 0 1-3 3.7" />
+          <path d="M6.3 7.9A17 17 0 0 0 2 12s3.6 6 10 6a9.8 9.8 0 0 0 4-.8" />
+          <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
+        </>
+      )}
+    </svg>
+  );
+}
 
 export default function AdminLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Check if token is already present
+  // Skip the form when a session is already stored
   useEffect(() => {
-    const token = localStorage.getItem("admin_token");
-    if (token) {
+    if (getToken()) {
       navigate("/admin", { replace: true });
     }
   }, [navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();
+
     if (!username.trim() || !password) {
       setError("Please enter your username and password.");
       return;
@@ -31,13 +67,8 @@ export default function AdminLogin() {
     try {
       const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          identifier: username.trim(),
-          password: password,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ identifier: username.trim(), password }),
       });
 
       const isJson = response.headers.get("content-type")?.includes("application/json");
@@ -47,10 +78,7 @@ export default function AdminLogin() {
         throw new Error(data.error || "Incorrect username or password.");
       }
 
-      // Store auth session
-      localStorage.setItem("admin_token", data.token);
-      localStorage.setItem("admin_user", JSON.stringify(data.admin));
-
+      saveSession(data.token, data.admin);
       navigate("/admin", { replace: true });
     } catch (err) {
       setError(err.message || "Failed to sign in. Please try again.");
@@ -60,70 +88,84 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen bg-dark flex items-center justify-center px-6">
-      <div className="w-full max-w-sm bg-white border border-line rounded-lg p-8 shadow-float">
-        {/* Logo - centered */}
-        <div className="flex justify-center mb-7">
-          <img
-            src="/logo-landscape.png"
-            alt="Axonite"
-            className="w-full max-w-[200px] h-auto"
-          />
-        </div>
+    <AuthShell>
+      <header className="mb-7 text-center lg:text-left">
+        <p className="eyebrow mb-2.5 justify-center lg:justify-start">Restricted</p>
+        <h2 className="text-display-xs mb-2">Admin sign in</h2>
+        <p className="text-sm text-ink-2">Restricted to Axonite staff.</p>
+      </header>
 
-        <div className="mb-6">
-          <p className="eyebrow mb-2">Restricted</p>
-          <h1 className="text-display-xs mb-1">Admin sign in</h1>
-          <p className="text-ink-2 text-sm">Restricted to Axonite staff.</p>
-        </div>
+      <div className="space-y-4">
+        <StatusMessage tone="error">{error}</StatusMessage>
 
-        {error && (
-          <p className="text-sm text-coral bg-coral/10 border border-coral/30 rounded-sm px-3 py-2 mb-4">
-            {error}
-          </p>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5" noValidate>
           <div>
-            <label className="font-mono-label text-[0.62rem] text-ink-3 block mb-2">
-              Username or Email
+            <label htmlFor="identifier" className={fieldLabelClass}>
+              Username or email
             </label>
             <input
+              id="identifier"
+              name="identifier"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               autoFocus
               required
+              autoComplete="username"
               disabled={loading}
               placeholder="Enter username or email"
-              className="w-full bg-paper border border-line rounded-sm px-4 py-3 text-sm text-ink placeholder:text-ink-3 focus:outline-none focus:border-accent transition-colors disabled:opacity-50"
+              className={fieldClass}
             />
           </div>
 
           <div>
-            <label className="font-mono-label text-[0.62rem] text-ink-3 block mb-2">
-              Password
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              disabled={loading}
-              placeholder="Enter password"
-              className="w-full bg-paper border border-line rounded-sm px-4 py-3 text-sm text-ink placeholder:text-ink-3 focus:outline-none focus:border-accent transition-colors disabled:opacity-50"
-            />
+            <div className="mb-2 flex items-baseline justify-between gap-3">
+              <label htmlFor="password" className={`${fieldLabelClass} mb-0`}>
+                Password
+              </label>
+              <Link
+                to="/admin/forgot-password"
+                className="text-xs font-medium text-accent transition-colors hover:text-accent-strong"
+              >
+                Forgot password?
+              </Link>
+            </div>
+
+            <div className="relative">
+              <input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoComplete="current-password"
+                disabled={loading}
+                placeholder="Enter password"
+                className={`${fieldClass} pr-12`}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                aria-pressed={showPassword}
+                className="absolute inset-y-0 right-0 flex w-12 items-center justify-center rounded-r-md text-ink-3 transition-colors hover:text-ink focus:outline-none focus-visible:text-ink"
+              >
+                <EyeIcon open={showPassword} />
+              </button>
+            </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-accent text-white font-semibold text-[0.9375rem] px-6 py-3.5 rounded-full transition-colors hover:bg-accent-strong disabled:opacity-50 flex items-center justify-center gap-2"
-          >
-            {loading ? "Signing in..." : "Sign in"}
+          <button type="submit" disabled={loading} className={primaryButtonClass}>
+            {loading && <Spinner />}
+            {loading ? "Signing in…" : "Sign in"}
           </button>
         </form>
       </div>
-    </div>
+
+      <p className="mt-7 text-center text-xs leading-relaxed text-ink-3">
+        Access is logged. Contact the main admin if you need an account.
+      </p>
+    </AuthShell>
   );
 }

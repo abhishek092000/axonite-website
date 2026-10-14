@@ -1,6 +1,6 @@
+import { API_BASE_URL, authedFetch } from "../../lib/api";
 import React, { useState, useEffect } from "react";
 
-const API_BASE_URL = "http://localhost:5000/api";
 
 export default function KnowledgeBase() {
   const [documents, setDocuments] = useState([]);
@@ -13,7 +13,7 @@ export default function KnowledgeBase() {
 
   const fetchDocuments = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/rag/documents`);
+      const res = await authedFetch(`${API_BASE_URL}/rag/documents`);
       if (res.ok) {
         const data = await res.json();
         setDocuments(data.documents || []);
@@ -39,7 +39,7 @@ export default function KnowledgeBase() {
     formData.append("category", docCategory);
 
     try {
-      const res = await fetch(`${API_BASE_URL}/rag/ingest-document`, {
+      const res = await authedFetch(`${API_BASE_URL}/rag/ingest-document`, {
         method: "POST",
         body: formData,
       });
@@ -71,7 +71,7 @@ export default function KnowledgeBase() {
     setStatusMessage(null);
 
     try {
-      const res = await fetch(`${API_BASE_URL}/rag/documents/${docId}`, {
+      const res = await authedFetch(`${API_BASE_URL}/rag/documents/${docId}`, {
         method: "DELETE",
       });
 
@@ -96,7 +96,7 @@ export default function KnowledgeBase() {
     setStatusMessage(null);
 
     try {
-      const res = await fetch(`${API_BASE_URL}/rag/rebuild-index`, {
+      const res = await authedFetch(`${API_BASE_URL}/rag/rebuild-index`, {
         method: "POST",
       });
       const data = await res.json();

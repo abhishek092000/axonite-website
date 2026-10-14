@@ -1,7 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { blogPosts as defaultBlogPosts, jobs as defaultJobs } from "../data/content";
-
-const API_BASE_URL = "http://localhost:5000/api";
+import {
+  API_BASE_URL,
+  clearSession,
+  fetchProfile,
+  getStoredAdmin,
+  getToken,
+  saveSession,
+} from "./api";
 
 const KEYS = {
   blog: "axonite_blog_posts",
@@ -9,8 +15,6 @@ const KEYS = {
   pageviews: "axonite_pageviews",
   sessions: "axonite_sessions",
   breakdown: "axonite_page_breakdown",
-  auth: "admin_token",
-  adminUser: "admin_user",
   applications: "axonite_applications",
 };
 
@@ -58,11 +62,34 @@ if (typeof window !== "undefined") {
 
 export const isAuthed = () => {
   if (typeof window === "undefined") return false;
-  return Boolean(localStorage.getItem(KEYS.auth));
+  return Boolean(getToken());
 };
 
-export const getAdminUser = () => {
-  return read(KEYS.adminUser, null);
+export const getAdminUser = () => getStoredAdmin();
+
+/**
+ * Confirms the stored token is still accepted by the backend and refreshes
+ * the cached admin profile. Returns the admin object when the session is
+ * usable, else null.
+ *
+ * A rejected token (401/403/404) ends the session, but a network or server
+ * hiccup must not sign the user out — the cached profile is returned instead.
+ */
+export const refreshSession = async () => {
+  if (!getToken()) return null;
+
+  const { ok, status, data } = await fetchProfile();
+  if (ok && data?.admin) {
+    saveSession(getToken(), data.admin);
+    return data.admin;
+  }
+
+  if (status === 401 || status === 403 || status === 404) {
+    clearSession();
+    return null;
+  }
+
+  return getStoredAdmin();
 };
 
 export const login = async (identifier, password) => {
@@ -85,8 +112,7 @@ export const login = async (identifier, password) => {
       throw new Error(data.error || "Incorrect username or password.");
     }
 
-    localStorage.setItem(KEYS.auth, data.token);
-    write(KEYS.adminUser, data.admin);
+    saveSession(data.token, data.admin);
     return { success: true, admin: data.admin, token: data.token };
   } catch (err) {
     return { success: false, error: err.message };
@@ -94,8 +120,7 @@ export const login = async (identifier, password) => {
 };
 
 export const logout = () => {
-  localStorage.removeItem(KEYS.auth);
-  localStorage.removeItem(KEYS.adminUser);
+  clearSession();
   if (typeof window !== "undefined") {
     window.location.href = "/admin/login";
   }
