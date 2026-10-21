@@ -6,7 +6,7 @@
 # ===== Node / Frontend (Axonite_website) =====
 node_modules/
 .astro/
-dist/
+# dist/
 dist-ssr/
 *.local
 npm-debug.log*
