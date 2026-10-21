@@ -1,0 +1,83 @@
+---
+import { products, process } from "../data/content.js";
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+const metrics = [
+  { value: "3", label: "Products in production, each doing one job well" },
+  { value: "11", label: "Engineers, designers, and support specialists" },
+  { value: "2026", label: "Founded in Pune, shipping from day one" },
+  { value: "10 yr", label: "The horizon we build every product against" },
+];
+---
+
+<SiteLayout title="Axonite Technology | Product software that lasts" description="Axonite builds and runs product software for teams that cannot afford downtime.">
+  <section class="relative overflow-hidden bg-paper ambient-wash pt-32 pb-16 section-rule">
+    <div class="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+      <div class="absolute inset-0 opacity-20" style="background-image:radial-gradient(#0f766e 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse 75% 65% at 50% 20%,black 50%,transparent 100%)"></div>
+    </div>
+    <div class="relative max-w-container mx-auto px-6">
+      <p class="eyebrow mb-5">Axonite Technology Pvt Ltd — Product software</p>
+      <h1 class="text-display max-w-[15ch]">Software that stays useful after launch day.</h1>
+      <p class="mt-6 max-w-[46ch] text-[1.16rem] leading-relaxed text-ink-2">
+        We build and run product software for teams that can't afford downtime — finance operations, field service, and product planning. Fewer features, all of them load-bearing.
+      </p>
+      <div class="flex flex-wrap gap-3 mt-9">
+        <a href="/contact/" class="inline-flex items-center justify-center bg-accent text-white font-semibold text-[0.9375rem] px-7 py-3.5 rounded-full transition-colors hover:bg-accent-strong">Book a walkthrough</a>
+        <a href="/services/" class="inline-flex items-center justify-center border border-line text-ink font-semibold text-[0.9375rem] px-7 py-3.5 rounded-full transition-colors hover:border-ink-3">See what we build</a>
+      </div>
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-3 mt-12 pt-6 border-t border-line text-[0.85rem] text-ink-3">
+        <span><strong class="text-ink font-semibold">In production today</strong> — three products across finance, field, and product</span>
+        <span>Pune, India — serving teams nationwide</span>
+      </div>
+    </div>
+    <div class="relative mt-14" aria-hidden="true">
+      <svg class="w-full h-16 md:h-20" viewBox="0 0 1200 80" fill="none" preserveAspectRatio="none">
+        <path d="M0 40H240L280 15H420L460 62H660L700 30H850L890 50H1200" stroke="var(--accent)" stroke-opacity=".35" stroke-width="1.5" stroke-dasharray="6 7" />
+        <circle cx="280" cy="15" r="4" fill="var(--accent)" /><circle cx="460" cy="62" r="4" fill="var(--accent-bright)" /><circle cx="700" cy="30" r="4" fill="var(--accent)" /><circle cx="890" cy="50" r="4" fill="var(--accent-bright)" />
+      </svg>
+    </div>
+  </section>
+
+  <section class="bg-paper pb-4">
+    <div class="max-w-container mx-auto px-6">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-px bg-line-soft border border-line rounded-md overflow-hidden">
+        {metrics.map((metric) => <div class="bg-white px-6 py-7"><p class="font-serif text-[clamp(1.9rem,1.4rem+1.4vw,2.5rem)] leading-none tracking-[-0.03em] text-ink">{metric.value}</p><p class="mt-2.5 text-[0.9rem] leading-snug text-ink-2">{metric.label}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-paper py-24 section-rule mt-20">
+    <div class="max-w-container mx-auto px-6">
+      <div class="max-w-[720px] mb-12 reveal">
+        <p class="eyebrow mb-4">What we run</p>
+        <h2 class="text-display-sm max-w-[20ch]">Three products, each doing one job well.</h2>
+        <p class="mt-4 text-[1.05rem] leading-relaxed text-ink-2">We would rather run three products properly than eight adequately. Everything we ship is built to still be supported in ten years.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        {products.map((product) => <a href={product.website || "/products/"} target={product.website ? "_blank" : undefined} rel={product.website ? "noopener noreferrer" : undefined} class="card card--hover flex flex-col p-7 h-full reveal"><p class="font-mono-label text-[0.7rem] text-ink-3 mb-4">{product.tag}</p><h3 class="text-display-xs">{product.name}</h3><p class="mt-3 text-[0.9rem] leading-relaxed text-ink-2">{product.desc}</p><span class="mt-auto pt-6 inline-flex items-center gap-1.5 text-[0.85rem] font-semibold text-accent">{product.website ? "Visit website" : "Product detail"} <span aria-hidden="true">{product.website ? "↗" : "→"}</span></span></a>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-dark section-rule py-24">
+    <div class="max-w-container mx-auto px-6">
+      <div class="max-w-[720px] mb-12 reveal">
+        <p class="eyebrow mb-4">How a project moves</p>
+        <h2 class="text-display-sm max-w-[20ch]">A process that doesn't hide the middle part.</h2>
+        <p class="mt-4 text-[1.05rem] leading-relaxed">Five stages, repeated every release. Nothing reaches production until it has passed the checks we agreed on together.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-x-6 gap-y-10">
+        {process.map((step, index) => <div class="border-t border-line-dark pt-5 reveal"><p class="font-mono-label text-[0.7rem] text-accent-bright mb-3">0{index + 1}</p><h3 class="text-[1.15rem] mb-2">{step.step}</h3><p class="text-[0.875rem] leading-relaxed">{step.desc}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-paper py-24 section-rule">
+    <div class="max-w-container mx-auto px-6">
+      <div class="relative grid lg:grid-cols-[minmax(0,1fr)_auto] gap-6 items-center px-8 py-12 lg:px-12 border border-line-dark rounded-lg overflow-hidden bg-[linear-gradient(150deg,#151923_0%,#0a1c1a_100%)] reveal">
+        <div class="relative"><h2 class="text-display-xs !text-ink-inverse">Have a product that needs to be built or enhanced?</h2><p class="mt-3 max-w-[46ch] text-[0.9375rem] leading-relaxed !text-ink-inverse-2">We take on a small number of projects at a time. Tell us where it stands today and we'll be straight about whether we're the right team for it.</p></div>
+        <a href="/contact/" class="relative inline-flex items-center justify-center bg-accent-bright text-accent-ink font-semibold text-[0.9375rem] px-7 py-3.5 rounded-full transition-colors hover:bg-white">Get in touch</a>
+      </div>
+    </div>
+  </section>
+</SiteLayout>

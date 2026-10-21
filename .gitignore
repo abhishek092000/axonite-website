@@ -5,6 +5,7 @@
 
 # ===== Node / Frontend (Axonite_website) =====
 node_modules/
+.astro/
 dist/
 dist-ssr/
 *.local
@@ -27,6 +28,10 @@ uv.lock
 # ===== Vector DB / Uploads (generated at runtime) =====
 chroma_db/
 uploads/
+
+# ===== SQLite database (generated at runtime) =====
+backend/data/
+*.db
 
 # ===== IDE / Editor =====
 .vscode/

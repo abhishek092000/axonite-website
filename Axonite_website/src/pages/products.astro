@@ -1,0 +1,41 @@
+---
+import { products } from "../data/content.js";
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout title="Products | Axonite Technology" description="Explore Axonite products for finance operations, industrial execution, and automation.">
+  <section class="bg-paper py-24 section-rule">
+    <div class="max-w-container mx-auto px-6">
+      <div class="max-w-3xl reveal">
+        <p class="eyebrow mb-4">Products</p>
+        <h1 class="text-display max-w-[16ch]">Three products built to stay useful after launch.</h1>
+        <p class="mt-5 max-w-[58ch] text-[1.05rem] leading-relaxed text-ink-2">
+          Each product is designed around a core operational problem. We favor fewer, better tools over broad feature sprawl.
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-8 lg:grid-cols-3">
+        {products.map((product) => (
+          <article class="card card--hover relative overflow-hidden p-8 reveal flex h-full flex-col">
+            <div aria-hidden="true" class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-accent via-magenta to-cyan"></div>
+            <p class="mb-4 inline-flex w-fit rounded-full bg-accent-soft px-3 py-1 font-mono-label text-[0.68rem] text-accent">{product.tag}</p>
+            <h2 class="text-display-xs">{product.name}</h2>
+            <p class="mt-4 text-[0.94rem] leading-relaxed text-ink-2">{product.desc}</p>
+            <div class="mt-6 rounded-md border border-accent-soft bg-paper-alt p-4">
+              <p class="font-mono-label text-[0.68rem] text-accent">Ideal for</p>
+              <p class="mt-2 text-[0.86rem] leading-relaxed text-ink-2">{product.idealFor}</p>
+            </div>
+            <ul class="mt-6 space-y-2 text-[0.88rem] leading-relaxed text-ink-2">
+              {product.features.map((feature) => <li class="flex gap-2"><span aria-hidden="true" class="text-accent">•</span><span>{feature}</span></li>)}
+            </ul>
+            {product.website && (
+              <a href={product.website} target="_blank" rel="noopener noreferrer" class="mt-8 inline-flex items-center gap-1.5 text-[0.88rem] font-semibold text-accent hover:text-accent-strong">
+                Visit website <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</SiteLayout>

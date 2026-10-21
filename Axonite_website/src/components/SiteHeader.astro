@@ -1,0 +1,74 @@
+---
+const links = [
+  ["Home", "/"],
+  ["About", "/about/"],
+  ["Products", "/products/"],
+  ["Services", "/services/"],
+  ["Career", "/career/"],
+  ["Blog", "/blog/"],
+  ["Contact", "/contact/"],
+];
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<header class="site-header">
+  <nav aria-label="Main" class="site-header__bar">
+    <a href="/" class="site-brand" aria-label="Axonite Technology Pvt Ltd — home">
+      <img src="/logo-nav.png" alt="Axonite Technology Pvt Ltd" width="1051" height="253" />
+    </a>
+    <ul class="site-nav">
+      {links.map(([label, href]) => (
+        <li>
+          <a href={href} class:list={{ "is-active": currentPath === href.replace(/\/$/, "") || currentPath === "/" && href === "/" }} aria-current={currentPath === href.replace(/\/$/, "") || currentPath === "/" && href === "/" ? "page" : undefined}>{label}</a>
+        </li>
+      ))}
+    </ul>
+    <div class="site-header__actions">
+      <a href="tel:+919823103626" class="site-phone">+91 98231 03626</a>
+      <a href="/contact/" class="site-cta">Start a project</a>
+    </div>
+    <button
+      type="button"
+      class="mobile-menu-toggle"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      data-mobile-menu-toggle
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+      </svg>
+    </button>
+    <nav id="mobile-nav" aria-label="Mobile" class="mobile-nav" hidden>
+      {links.map(([label, href]) => <a href={href}>{label}</a>)}
+      <a class="mobile-nav__cta" href="/contact/">Start a project</a>
+    </nav>
+  </nav>
+</header>
+<script>
+  const toggle = document.querySelector("[data-mobile-menu-toggle]");
+  const menu = document.querySelector("#mobile-nav");
+
+  if (toggle instanceof HTMLButtonElement && menu instanceof HTMLElement) {
+    const closeMenu = () => {
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open menu");
+      menu.hidden = true;
+      document.body.style.overflow = "";
+    };
+
+    toggle.addEventListener("click", () => {
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!isOpen));
+      toggle.setAttribute("aria-label", isOpen ? "Open menu" : "Close menu");
+      menu.hidden = isOpen;
+      document.body.style.overflow = isOpen ? "" : "hidden";
+    });
+    menu.addEventListener("click", (event) => {
+      if (event.target instanceof HTMLAnchorElement) closeMenu();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+  }
+</script>

@@ -1,0 +1,6 @@
+@import "tailwindcss/preflight";
+@import "tailwindcss/theme" theme(reference);
+@config "../../tailwind.config.js";
+@import "tailwindcss/utilities" source(none);
+@source "../pages";
+@source "../components";

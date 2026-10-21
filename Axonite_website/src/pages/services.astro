@@ -1,0 +1,43 @@
+---
+import { services, process } from "../data/content.js";
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout title="Services | Axonite Technology" description="Product design, applied AI, platform engineering, and long-term product support from Axonite.">
+  <section class="bg-paper py-24 section-rule">
+    <div class="max-w-container mx-auto px-6">
+      <div class="max-w-3xl reveal">
+        <p class="eyebrow mb-4">Services</p>
+        <h1 class="text-display max-w-[16ch]">Support for the software that keeps operations moving.</h1>
+        <p class="mt-5 max-w-[58ch] text-[1.05rem] leading-relaxed text-ink-2">
+          We help teams design, build, and run software that is operationally grounded, measurable, and easy to support.
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-6 md:grid-cols-2">
+        {services.map((service) => (
+          <article class="card card--hover relative overflow-hidden p-8 reveal">
+            <div aria-hidden="true" class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-accent via-magenta to-cyan"></div>
+            <p class="inline-flex rounded-full bg-accent-soft px-3 py-1 font-mono-label text-[0.68rem] text-accent">Service</p>
+            <h2 class="mt-4 text-display-xs">{service.title}</h2>
+            <p class="mt-4 text-[0.94rem] leading-relaxed text-ink-2">{service.desc}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-20 reveal">
+        <p class="eyebrow mb-4">Delivery model</p>
+        <h2 class="text-display-sm max-w-[18ch]">A process designed to reduce surprises.</h2>
+        <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+          {process.map((step, index) => (
+            <div class="rounded-lg border border-line bg-white p-5">
+              <p class="mb-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-accent-soft font-mono-label text-[0.68rem] text-accent">{String(index + 1).padStart(2, "0")}</p>
+              <h3 class="text-[1.1rem] text-ink">{step.step}</h3>
+              <p class="mt-2 text-[0.88rem] leading-relaxed text-ink-2">{step.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</SiteLayout>

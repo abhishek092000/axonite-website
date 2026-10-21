@@ -1,50 +1,54 @@
 /** @type {import('tailwindcss').Config} */
 
-// Design tokens mirror the Axonite product site (Polypus): a warm paper
-// canvas, a near-black ink surface, and a single deep-teal accent used
-// sparingly for eyebrows, buttons and active states.
+// Design tokens mirror the official Axonite design kit.
 export default {
-  content: ["./index.html", "./src/**/*.{js,jsx}"],
+  content: ["./index.html", "./src/**/*.{js,jsx,astro}"],
   theme: {
     extend: {
       colors: {
-        // Surfaces
-        paper: "#faf9f7",
-        "paper-alt": "#f2f0eb",
-        dark: "#0d1017",
-        "dark-2": "#151923",
-        "dark-3": "#1e2430",
+        paper: "#fbfaf8",
+        "paper-alt": "#f3f1f8",
+        white: "#ffffff",
+        dark: "#0c0b24",
+        "dark-2": "#15133a",
+        "dark-3": "#211e52",
+        deep: "#1d1258",
 
-        // Text
-        ink: "#12151c",
-        "ink-2": "#3b4250",
-        "ink-3": "#6b7284",
-        "ink-inverse": "#f4f2ee",
-        "ink-inverse-2": "#a9b0bf",
+        ink: "#15143d",
+        "ink-2": "#464466",
+        "ink-3": "#6b6989",
+        "ink-inverse": "#f4f2fb",
+        "ink-inverse-2": "#b4b1d4",
 
-        // Lines
-        line: "#e2ded6",
-        "line-soft": "#eeeae3",
-        "line-dark": "#262d3b",
+        line: "#e5e2ec",
+        "line-soft": "#efedf3",
+        "line-dark": "#2b2862",
 
-        // Accent
-        accent: "#0f766e",
-        "accent-strong": "#0b5a55",
-        "accent-bright": "#14b8a6",
-        "accent-soft": "#e4f2ef",
-        "accent-ink": "#06302d",
+        accent: "#5b3bd6",
+        "accent-strong": "#4527b0",
+        "accent-bright": "#a08bff",
+        "accent-soft": "#eeeaff",
+        "accent-ink": "#251466",
 
-        // Secondary accents, used only for small status signals
+        magenta: "#c248c7",
+        "magenta-bright": "#e58ae8",
+        blue: "#154ad8",
+        cyan: "#26a2e2",
+        "cyan-bright": "#5cc8f2",
         gold: "#a9752c",
         "gold-soft": "#f6eddd",
+        "gold-ink": "#7a5313",
+        "gold-line": "#e7d3b4",
+        "gold-wash": "#fdf7ec",
         coral: "#c2543a",
+        graphite: "#171d26",
       },
       fontFamily: {
-        sans: ["'Inter'", "system-ui", "-apple-system", "sans-serif"],
-        body: ["'Inter'", "system-ui", "-apple-system", "sans-serif"],
-        serif: ["'Newsreader'", "Georgia", "serif"],
-        display: ["'Newsreader'", "Georgia", "serif"],
-        mono: ["'JetBrains Mono'", "ui-monospace", "monospace"],
+        sans: ['"IBM Plex Sans"', '"IBM Plex Sans Arabic"', 'system-ui', 'sans-serif'],
+        body: ['"IBM Plex Sans"', '"IBM Plex Sans Arabic"', 'system-ui', 'sans-serif'],
+        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+        display: ['"Hanken Grotesk"', '"IBM Plex Sans Arabic"', 'system-ui', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
       },
       fontSize: {
         // Fluid display sizes so headings scale without breakpoint juggling.

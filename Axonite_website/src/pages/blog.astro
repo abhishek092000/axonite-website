@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<SiteLayout title="Writing | Axonite Technology" description="Engineering decisions, design trade-offs, and postmortems from the people who did the work.">
+  <section class="bg-paper py-24 section-rule">
+    <div class="max-w-container mx-auto px-6">
+      <div class="max-w-3xl reveal">
+        <p class="eyebrow mb-4">Writing</p>
+        <h1 class="text-display max-w-[12ch]">Notes from the work.</h1>
+        <p class="mt-5 max-w-[58ch] text-[1.05rem] leading-relaxed text-ink-2">
+          Explore insights on product design, delivery trade-offs, and real-world support challenges, along with practical approaches to building reliable, dependable software.
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-6 lg:grid-cols-2">
+        {posts.map((post) => (
+          <article class="card card--hover relative overflow-hidden p-8 reveal flex h-full flex-col">
+            <div aria-hidden="true" class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-accent via-magenta to-cyan"></div>
+            <div class="flex items-center justify-between gap-3">
+              <span class="inline-flex rounded-full bg-accent-soft px-3 py-1 font-mono-label text-[0.68rem] text-accent">{post.data.tag}</span>
+              <time class="rounded-full bg-paper-alt px-3 py-1 text-[0.76rem] text-ink-2" datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString("en-US", { month: "short", year: "numeric" })}</time>
+            </div>
+            <h2 class="mt-4 text-display-xs">{post.data.title}</h2>
+            <p class="mt-4 text-[0.94rem] leading-relaxed text-ink-2">{post.data.excerpt}</p>
+            <div class="mt-auto pt-6">
+              <span class="inline-flex items-center gap-1.5 text-[0.82rem] font-semibold text-accent">Read notes <span aria-hidden="true">→</span></span>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</SiteLayout>
